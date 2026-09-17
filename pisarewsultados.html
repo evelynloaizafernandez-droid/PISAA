@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PISA 2026 | Resultados Educativos</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#eef7ff;
+    color:#123;
+}
+
+/* ===== ENCABEZADO ===== */
+header{
+    min-height:520px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+    padding:50px 20px;
+    background:
+        linear-gradient(135deg,rgba(7,89,133,.95),rgba(8,145,178,.85)),
+        radial-gradient(circle at top,#38bdf8,transparent 50%);
+    position:relative;
+    overflow:hidden;
+}
+
+header::before,
+header::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+}
+
+header::before{
+    width:350px;
+    height:350px;
+    left:-100px;
+    top:-100px;
+}
+
+header::after{
+    width:450px;
+    height:450px;
+    right:-150px;
+    bottom:-200px;
+}
+
+.portada{
+    position:relative;
+    z-index:2;
+    max-width:850px;
+}
+
+.logo{
+    font-size:75px;
+    margin-bottom:10px;
+    animation:flotar 3s ease-in-out infinite;
+}
+
+@keyframes flotar{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+.portada h1{
+    font-size:clamp(45px,8vw,85px);
+    margin:10px 0;
+}
+
+.portada h2{
+    font-size:25px;
+    font-weight:normal;
+}
+
+.portada p{
+    font-size:18px;
+    line-height:1.6;
+}
+
+.btn-principal{
+    display:inline-block;
+    margin-top:25px;
+    padding:15px 30px;
+    border-radius:30px;
+    background:white;
+    color:#075985;
+    font-weight:bold;
+    cursor:pointer;
+    border:none;
+    font-size:16px;
+    transition:.3s;
+}
+
+.btn-principal:hover{
+    transform:scale(1.08);
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+/* ===== MENÚ ===== */
+nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:white;
+    padding:12px;
+    text-align:center;
+    box-shadow:0 3px 15px rgba(0,0,0,.12);
+}
+
+nav button{
+    padding:11px 18px;
+    margin:4px;
+    border:0;
+    border-radius:20px;
+    background:#0891b2;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+}
+
+nav button:hover{
+    background:#075985;
+    transform:translateY(-2px);
+}
+
+/* ===== SECCIONES ===== */
+section{
+    padding:70px 20px;
+    text-align:center;
+}
+
+section h2{
+    color:#075985;
+    font-size:35px;
+}
+
+.contenedor{
+    max-width:1100px;
+    margin:auto;
+}
+
+/* ===== TARJETAS ===== */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-top:35px;
+}
+
+.card{
+    background:white;
+    padding:30px 20px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 30px rgba(0,0,0,.15);
+}
+
+.icono{
+    font-size:50px;
+}
+
+.numero{
+    font-size:50px;
+    color:#0891b2;
+    font-weight:bold;
+    margin:10px;
+}
+
+/* ===== RESULTADOS ===== */
+.resultado{
+    position:relative;
+    overflow:hidden;
+}
+
+.resultado h3{
+    color:#075985;
+}
+
+.barra{
+    height:12px;
+    background:#dbeafe;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+.progreso{
+    height:100%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#06b6d4,#075985);
+}
+
+/* ===== INFORMACIÓN ===== */
+.info{
+    background:linear-gradient(135deg,#dff6ff,#f8fdff);
+}
+
+.info-box{
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    max-width:850px;
+    margin:auto;
+    line-height:1.8;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+/* ===== BOTÓN INTERACTIVO ===== */
+.boton{
+    border:none;
+    background:#0891b2;
+    color:white;
+    padding:12px 22px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.boton:hover{
+    background:#075985;
+    transform:scale(1.05);
+}
+
+/* ===== QUIZ ===== */
+.quiz{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:35px;
+    border-radius:25px;
+    box-shadow:0 5px 25px rgba(0,0,0,.12);
+}
+
+.opcion{
+    display:block;
+    width:100%;
+    margin:10px 0;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#e0f2fe;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.opcion:hover{
+    background:#bae6fd;
+}
+
+#respuesta{
+    font-weight:bold;
+    margin-top:20px;
+}
+
+/* ===== MENÚ FLOTANTE ===== */
+.menu-flotante{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:200;
+}
+
+.boton-flotante{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    border:none;
+    background:#075985;
+    color:white;
+    font-size:25px;
+    cursor:pointer;
+    box-shadow:0 5px 20px rgba(0,0,0,.25);
+}
+
+.opciones-flotantes{
+    display:none;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.opciones-flotantes button{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:none;
+    background:#0891b2;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 3px 10px rgba(0,0,0,.2);
+}
+
+.menu-flotante.abierto .opciones-flotantes{
+    display:flex;
+}
+
+/* ===== MODAL ===== */
+.modal{
+    display:none;
+    position:fixed;
+    z-index:500;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-contenido{
+    background:white;
+    max-width:600px;
+    padding:35px;
+    border-radius:25px;
+    text-align:center;
+    animation:aparecer .3s ease;
+}
+
+@keyframes aparecer{
+    from{
+        transform:scale(.7);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.cerrar{
+    float:right;
+    font-size:25px;
+    cursor:pointer;
+    color:#075985;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    text-align:center;
+    background:#075985;
+    color:white;
+    padding:35px 20px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+
+    header{
+        min-height:470px;
+    }
+
+    .portada h1{
+        font-size:50px;
+    }
+
+    section{
+        padding:50px 15px;
+    }
+
+    nav button{
+        padding:9px 12px;
+        font-size:13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= PORTADA ================= -->
+
+<header id="inicio">
+
+    <div class="portada">
+
+        <div class="logo">📊</div>
+
+        <h1>PISA 2026</h1>
+
+        <h2>Evaluación Internacional de Estudiantes</h2>
+
+        <p>
+            Explora los resultados, las áreas evaluadas y los principales
+            aspectos de la educación mediante una experiencia interactiva.
+        </p>
+
+        <button class="btn-principal"
+                onclick="irA('resultados')">
+            🚀 Explorar resultados
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================= MENÚ ================= -->
+
+<nav>
+
+    <button onclick="irA('inicio')">🏠 Inicio</button>
+
+    <button onclick="irA('resultados')">📈 Resultados</button>
+
+    <button onclick="irA('areas')">📚 Áreas</button>
+
+    <button onclick="irA('informacion')">ℹ️ Información</button>
+
+    <button onclick="irA('quiz')">🧠 Quiz</button>
+
+</nav>
+
+
+<!-- ================= RESUMEN ================= -->
+
+<section>
+
+<div class="contenedor">
+
+<h2>🌎 PISA en cifras</h2>
+
+<div class="grid">
+
+<div class="card">
+<div class="icono">👨‍🎓</div>
+<h3>Estudiantes</h3>
+<div class="numero">15+</div>
+<p>Años de edad evaluados aproximadamente.</p>
+</div>
+
+<div class="card">
+<div class="icono">🌍</div>
+<h3>Alcance internacional</h3>
+<div class="numero">Global</div>
+<p>Permite comparar sistemas educativos.</p>
+</div>
+
+<div class="card">
+<div class="icono">📚</div>
+<h3>Áreas</h3>
+<div class="numero">3</div>
+<p>Matemáticas, lectura y ciencias.</p>
+</div>
+
+<div class="card">
+<div class="icono">💡</div>
+<h3>Objetivo</h3>
+<div class="numero">100%</div>
+<p>Conocer fortalezas y oportunidades educativas.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= RESULTADOS ================= -->
+
+<section id="resultados">
+
+<div class="contenedor">
+
+<h2>📈 Resultados PISA 2026</h2>
+
+<p>
+Consulta las puntuaciones promedio presentadas en este proyecto.
+</p>
+
+<div class="grid">
+
+<div class="card resultado">
+
+<h3>📐 Matemáticas</h3>
+
+<div class="numero">409</div>
+
+<p>Puntuación promedio</p>
+
+<div class="barra">
+<div class="progreso" style="width:82%"></div>
+</div>
+
+</div>
+
+
+<div class="card resultado">
+
+<h3>📖 Lectura</h3>
+
+<div class="numero">415</div>
+
+<p>Puntuación promedio</p>
+
+<div class="barra">
+<div class="progreso" style="width:84%"></div>
+</div>
+
+</div>
+
+
+<div class="card resultado">
+
+<h3>🔬 Ciencias</h3>
+
+<div class="numero">410</div>
+
+<p>Puntuación promedio</p>
+
+<div class="barra">
+<div class="progreso" style="width:83%"></div>
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<button class="boton" onclick="mostrarModal()">
+🔎 Ver más información
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= ÁREAS ================= -->
+
+<section id="areas">
+
+<div class="contenedor">
+
+<h2>📚 Áreas evaluadas</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<div class="icono">📐</div>
+
+<h3>Matemáticas</h3>
+
+<p>
+Evalúa la capacidad de utilizar conocimientos matemáticos
+para resolver problemas de la vida cotidiana.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icono">📖</div>
+
+<h3>Lectura</h3>
+
+<p>
+Analiza la capacidad de comprender, utilizar y reflexionar
+sobre diferentes tipos de textos.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icono">🔬</div>
+
+<h3>Ciencias</h3>
+
+<p>
+Evalúa conocimientos científicos y la capacidad de aplicarlos
+para comprender diferentes situaciones.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= INFORMACIÓN ================= -->
+
+<section id="informacion" class="info">
+
+<div class="contenedor">
+
+<h2>ℹ️ ¿Qué es PISA?</h2>
+
+<div class="info-box">
+
+<p>
+<strong>PISA</strong> es un programa internacional que permite
+evaluar los conocimientos y habilidades de estudiantes
+y comparar diferentes sistemas educativos.
+</p>
+
+<p>
+Las evaluaciones se centran principalmente en áreas como
+matemáticas, lectura y ciencias.
+</p>
+
+<p>
+Los resultados pueden ayudar a identificar fortalezas,
+desafíos y oportunidades para mejorar la educación.
+</p>
+
+<button class="boton" onclick="mostrarModal()">
+📖 Leer más
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= QUIZ ================= -->
+
+<section id="quiz">
+
+<div class="contenedor">
+
+<h2>🧠 Pon a prueba tus conocimientos</h2>
+
+<div class="quiz">
+
+<h3>
+¿Cuáles son algunas de las principales áreas evaluadas por PISA?
+</h3>
+
+<button class="opcion" onclick="respuesta(false)">
+🎨 Arte y música
+</button>
+
+<button class="opcion" onclick="respuesta(true)">
+📐 Matemáticas, lectura y ciencias
+</button>
+
+<button class="opcion" onclick="respuesta(false)">
+⚽ Deportes y educación física
+</button>
+
+<p id="respuesta"></p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= MODAL ================= -->
+
+<div id="modal" class="modal">
+
+<div class="modal-contenido">
+
+<span class="cerrar" onclick="cerrarModal()">✖</span>
+
+<h2>📊 Sobre los resultados</h2>
+
+<p>
+Los datos mostrados en esta página forman parte de una
+presentación educativa sobre PISA 2026.
+</p>
+
+<p>
+La finalidad de este sitio es presentar la información de
+una manera visual, sencilla e interactiva.
+</p>
+
+<button class="boton" onclick="cerrarModal()">
+Entendido 👍
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ================= MENÚ FLOTANTE ================= -->
+
+<div class="menu-flotante" id="menuFlotante">
+
+<div class="opciones-flotantes">
+
+<button onclick="irA('inicio')" title="Inicio">
+🏠
+</button>
+
+<button onclick="irA('resultados')" title="Resultados">
+📈
+</button>
+
+<button onclick="irA('areas')" title="Áreas">
+📚
+</button>
+
+<button onclick="irA('quiz')" title="Quiz">
+🧠
+</button>
+
+</div>
+
+<button class="boton-flotante"
+        onclick="toggleMenu()"
+        title="Menú">
+☰
+</button>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<h3>📊 PISA 2026</h3>
+
+<p>
+Proyecto educativo interactivo
+</p>
+
+<p>
+Realizado por <strong>Evelyn Loaiza</strong>
+</p>
+
+</footer>
+
+
+<script>
+
+/* Navegación */
+
+function irA(id){
+
+    document.getElementById(id).scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* Menú flotante */
+
+function toggleMenu(){
+
+    document
+    .getElementById("menuFlotante")
+    .classList.toggle("abierto");
+
+}
+
+
+/* Modal */
+
+function mostrarModal(){
+
+    document.getElementById("modal").style.display="flex";
+
+}
+
+
+function cerrarModal(){
+
+    document.getElementById("modal").style.display="none";
+
+}
+
+
+/* Quiz */
+
+function respuesta(correcta){
+
+    const texto=document.getElementById("respuesta");
+
+    if(correcta){
+
+        texto.innerHTML="✅ ¡Correcto! Matemáticas, lectura y ciencias son áreas fundamentales de PISA.";
+        texto.style.color="#15803d";
+
+    }else{
+
+        texto.innerHTML="❌ No es correcto. Inténtalo nuevamente.";
+        texto.style.color="#dc2626";
+
+    }
+
+}
+
+
+/* Cerrar modal al hacer clic fuera */
+
+window.onclick=function(event){
+
+    const modal=document.getElementById("modal");
+
+    if(event.target===modal){
+
+        modal.style.display="none";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
